@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiPシーシャ — Build in Public</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #fff;
+      --border: #e5e5e5;
+      --text: #1a1a1a;
+      --text-dim: #777;
+      --accent: #111;
+      --red: #dc2626;
+      --green: #16a34a;
+      --orange: #ea580c;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --tag-bg: #f3f3f3;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+    a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { color: var(--blue); }
+
+    /* Hero */
+    .hero {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .hero .subtitle {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 540px;
+    }
+
+    /* Section */
+    section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+    section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+    .section-desc { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 0.75rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead { background: #f7f7f7; }
+    th { text-align: left; padding: 0.6rem 0.75rem; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+    td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+
+    /* Tags */
+    .tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; background: var(--tag-bg); color: var(--text-dim); margin-right: 0.25rem; }
+    .tag-green { background: #dcfce7; color: var(--green); }
+    .tag-red { background: #fee2e2; color: var(--red); }
+    .tag-orange { background: #ffedd5; color: var(--orange); }
+    .tag-blue { background: #dbeafe; color: var(--blue); }
+
+    /* Status */
+    .st { font-weight: 600; font-size: 0.85rem; }
+    .st-yes { color: var(--green); }
+    .st-no { color: var(--red); }
+    .st-maybe { color: var(--orange); }
+
+    /* Boxes */
+    .box { border-radius: 10px; padding: 1.25rem; margin: 1rem 0; }
+    .box-red { background: #fef2f2; border: 1px solid #fecaca; }
+    .box-red h4 { color: var(--red); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .box-green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .box-green h4 { color: var(--green); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .box-blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .box-blue h4 { color: var(--blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .box-gray { background: #f9f9f9; border: 1px solid var(--border); }
+    .box-gray h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .box p, .box li { font-size: 0.85rem; }
+
+    /* Checklist */
+    .cl { list-style: none; }
+    .cl li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; font-size: 0.85rem; }
+    .cl li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .cl li.warn::before { content: '!'; color: var(--orange); }
+    .cl li.cross::before { content: '✕'; color: var(--red); }
+
+    /* Steps */
+    .steps { position: relative; padding-left: 2rem; }
+    .steps::before { content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+    .step { position: relative; margin-bottom: 1.25rem; }
+    .step::before { content: attr(data-step); position: absolute; left: -2rem; width: 22px; height: 22px; border-radius: 50%; background: var(--text); color: #fff; font-weight: 800; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; z-index: 1; }
+    .step-red::before { background: var(--red); }
+    .step h4 { font-size: 0.9rem; font-weight: 700; }
+    .step p { color: var(--text-dim); font-size: 0.85rem; }
+
+    /* Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+    .stat-card .label { font-size: 0.7rem; color: var(--text-dim); }
+    .stat-card .val { font-size: 1.8rem; font-weight: 800; margin: 0.15rem 0; }
+    .stat-card .sub { font-size: 0.7rem; color: var(--text-dim); }
+
+    /* Plan cards */
+    .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .plan-card { border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; background: var(--surface); }
+    .plan-card.featured { border-color: var(--text); }
+    .plan-card .plan-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); }
+    .plan-card h3 { font-size: 1.1rem; font-weight: 700; margin: 0.25rem 0; }
+    .plan-card .plan-sub { font-size: 0.8rem; color: var(--text-dim); }
+    .plan-card .plan-price { font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0 0.25rem; }
+    .plan-card .plan-per { font-size: 0.75rem; color: var(--text-dim); }
+
+    /* Link grid */
+    .link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.5rem; }
+    .link-card { display: block; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; text-decoration: none !important; transition: border-color 0.15s; }
+    .link-card:hover { border-color: var(--text); }
+    .link-card strong { color: var(--text); font-size: 0.85rem; }
+    .link-card span { display: block; font-size: 0.7rem; color: var(--text-dim); }
+
+    /* Vent diagram */
+    .vent-diagram { background: #f9f9f9; border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; font-family: monospace; font-size: 0.8rem; line-height: 1.6; color: var(--text-dim); overflow-x: auto; white-space: pre; margin: 1rem 0; }
+
+    /* Competitor */
+    .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+    .comp-card { border: 1px solid var(--border); border-radius: 10px; padding: 1rem; background: var(--surface); }
+    .comp-card h4 { font-size: 0.9rem; font-weight: 700; }
+    .comp-card .loc { font-size: 0.75rem; color: var(--text-dim); }
+    .comp-card .desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.25rem; }
+
+    /* Score */
+    .score { font-size: 4rem; font-weight: 900; }
+
+    /* Footer */
+    footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-size: 0.75rem; }
+
+    @media (max-width: 640px) {
+      .plan-grid { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HERO ==================== -->
+  <header class="hero">
+    <div class="container">
+      <div class="label">Build in Public</div>
+      <h1>BiPシーシャ</h1>
+      <p class="subtitle">完全AI駆動の貸切シーシャ。岩手大学生向け。<br>物件探しから料金設計まで、全プロセスを公開する。</p>
+    </div>
+  </header>
+
+  <!-- ==================== STORY ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Story</div>
+      <h2>なぜ作るのか</h2>
+
+      <div style="margin-bottom:1.5rem;">
+        <p>3年前にChatGPTがリリースされ、「2,3年後にはAIに仕事奪われる」と焦って、休学して岩手を飛び出し、東京で戦っていた。予想通り、無事AIに仕事を奪われた（解雇されたとかではない）ので、大学に戻ってきた。</p>
+        <p style="margin-top:0.75rem;">東京でも「数学勉強したい」「物理勉強したい」ってずっと言ってたので、本望。岩手でいっぱい勉強する。</p>
+        <p style="margin-top:0.75rem;">東京で仲良くしてくれた人ありがとうございました。友達がみんな院進すると思ったら、安心して休学、挑戦できた。ありがたい。みんなはあと1年だけどまたよろしくお願いします。</p>
+        <p style="margin-top:0.75rem;color:var(--text-dim);font-size:0.85rem;">予言して行動して的中させて帰ってきたやつ、流石に説得力ある説。</p>
+      </div>
+
+      <div class="box box-gray">
+        <h4>問題</h4>
+        <p>東京でめっちゃシーシャ行ってた。でも岩手大学から盛岡大通りは遠い。既存のシーシャ店は全部繁華街にある。大学の近くにない。</p>
+      </div>
+      <div class="box box-gray">
+        <h4>解法</h4>
+        <p>じゃあ作る。岩手大学徒歩圏内に、完全AI駆動で貸切シーシャを。飲食は持ち込み。許認可も物件探しも料金設計も、全部AIと一緒にやる。そのプロセスを全公開する。Build in Public。</p>
+      </div>
+      <div class="box box-gray">
+        <h4>文脈</h4>
+        <p>時定数がゼロに近づく世界で、同じ場所に集まって同じ空気を吸う体験の価値は上がる一方だと思っている。パーソナライゼーションが進むほど、「同じ空間で同じ時間を過ごす」こと自体が希少になる。まずはシーシャから。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONCEPT ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Concept</div>
+      <h2>ビジネスモデル</h2>
+      <p class="section-desc">シーシャだけ置いて、飲食は持ち込み。許認可・初期投資・ランニングコスト全部軽い。</p>
+
+      <div class="grid-3">
+        <div class="stat-card">
+          <div class="label">月間売上（現実的）</div>
+          <div class="val">17.2万</div>
+          <div class="sub">平日5,400円×14日 + 週末12,000円×8日</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">月間経費</div>
+          <div class="val" style="color:var(--red);">10.5万</div>
+          <div class="sub">家賃6 + 光熱1.5 + 原価2 + 雑費1</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">月間利益</div>
+          <div class="val" style="color:var(--green);">6.7万</div>
+          <div class="sub">+ サブスク収入で上乗せ</div>
+        </div>
+      </div>
+
+      <div class="box box-green" style="margin-top:1rem;">
+        <h4>持ち込みスタイルのメリット</h4>
+        <ul class="cl" style="margin-top:0.25rem;">
+          <li>飲食店営業許可が不要（の可能性） → 保健所の設備基準を満たす必要なし</li>
+          <li>深夜酒類提供届出が不要 → 酒を店が提供しない</li>
+          <li>内装費が大幅削減 → 厨房不要、ソファとシーシャ台だけ</li>
+          <li>物件の選択肢が広がる → 「飲食店可」じゃなくてもOKの可能性</li>
+          <li>「コンビニで好きなもの買ってダラダラ」は大学生に最高の体験</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PERMITS ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Permits</div>
+      <h2>必要な許認可</h2>
+      <p class="section-desc">飲食を出さないなら、実質「たばこ出張販売許可」だけでいける。ただし重大な落とし穴あり。</p>
+
+      <div class="box box-red" style="margin-bottom:1.5rem;">
+        <h4>🚨 最重要: 飲食店営業許可が必要な可能性が高い</h4>
+        <p>「持ち込みスタイルなら不要」と想定していたが、店内で飲食（持ち込み含む）させる営業を行う場合、飲食店営業許可が必要になるケースが圧倒的多数。「提供しないからOK」は通じない可能性が高い。</p>
+        <p style="margin-top:0.5rem;font-weight:700;color:var(--red);">→ 今すぐ盛岡市保健所に匿名で電話確認すること<br>
+        生活衛生課: <a href="tel:0196038311" style="color:var(--red);">019-603-8311</a> / 健康増進課: <a href="tel:0196038305" style="color:var(--red);">019-603-8305</a></p>
+        <p style="margin-top:0.5rem;">ここがクリアできなければ全プランが変わる。他の全ステップより先にこれを確認せよ。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>許可名</th><th>必要？</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr><td><strong>たばこ出張販売許可</strong></td><td class="st st-yes">必要</td><td>シーシャ（たばこ）を提供する以上必須</td></tr>
+            <tr><td><strong>喫煙目的施設の届出</strong></td><td class="st st-yes">必要</td><td>改正健康増進法により屋内喫煙するために必要</td></tr>
+            <tr style="background:#fef2f2;"><td><strong>飲食店営業許可</strong></td><td class="st st-maybe">要確認</td><td>持ち込みでも必要な可能性大。保健所に確認必須</td></tr>
+            <tr><td>深夜酒類提供届出</td><td class="st st-no">不要</td><td>酒を店が提供しないなら不要</td></tr>
+            <tr><td>防火管理者</td><td class="st st-maybe">規模次第</td><td>収容30人超の場合のみ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>たばこ出張販売許可の取り方（最短ルート）</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem;"><a href="https://shop.cloud-jp.net" target="_blank">CLOUD SHOP</a>に頼めば<strong>無料</strong>で委託元になってくれる。登録免許税3,000円のみ。審査2〜3ヶ月。</p>
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr><td>JT盛岡支店</td><td>盛岡市盛岡駅前通15-19 盛岡フコク生命ビル1F</td></tr>
+              <tr><td>JTお客様相談センター</td><td><a href="tel:0120198504">0120-198-504</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRICING ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Pricing</div>
+      <h2>料金設計</h2>
+      <p class="section-desc">「貸切4,000円」のキャッチは残しつつ、実態は利益が出る3プラン構成。</p>
+
+      <div class="plan-grid">
+        <div class="plan-card">
+          <div class="plan-label">Solo / Duo</div>
+          <h3>ソロ / デュオ</h3>
+          <div class="plan-sub">1〜2人 / 90分</div>
+          <div class="plan-price">2,200円〜</div>
+          <div class="plan-per">利用料1,000円/人 + シーシャ1,200円</div>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-label" style="color:var(--text);">Most Popular</div>
+          <h3>グループ貸切</h3>
+          <div class="plan-sub">3〜5人 / 120分</div>
+          <div class="plan-price">4,000円〜</div>
+          <div class="plan-per">シーシャ1台込み / 追加1,000円/台</div>
+          <div style="margin-top:0.5rem;"><span class="tag tag-green">3人+2台=5,000円 → 1人1,667円</span></div>
+        </div>
+        <div class="plan-card">
+          <div class="plan-label">Party</div>
+          <h3>パーティ貸切</h3>
+          <div class="plan-sub">6人〜 / 180分</div>
+          <div class="plan-price">6,000円〜</div>
+          <div class="plan-per">シーシャ2台込み / 追加1,000円/台</div>
+          <div style="margin-top:0.5rem;"><span class="tag tag-green">6人+4台=8,000円 → 1人1,333円</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>オプション</h3>
+        <div class="table-wrap" style="margin-top:0.5rem;">
+          <table>
+            <thead><tr><th>項目</th><th>料金</th><th>原価</th></tr></thead>
+            <tbody>
+              <tr><td>延長</td><td><strong>500円</strong>/30分</td><td>—</td></tr>
+              <tr><td>アイスホース</td><td><strong>200円</strong></td><td>~0円</td></tr>
+              <tr><td>フレーバーMIX</td><td><strong>200円</strong></td><td>+50円</td></tr>
+              <tr><td>トップ替え</td><td><strong>800円</strong></td><td>+300円</td></tr>
+              <tr><td>デクラウド（ニコチンフリー）</td><td><strong>+300円</strong></td><td>+100円</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>月額サブスク</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem;">長期休暇の売上減を吸収する仕組み。20人加入で月10万の固定収入。</p>
+        <div class="grid-2">
+          <div style="background:var(--tag-bg);border-radius:8px;padding:1rem;text-align:center;">
+            <div style="font-size:0.7rem;color:var(--text-dim);">シーシャパス</div>
+            <div style="font-size:1.5rem;font-weight:800;">3,000円<span style="font-size:0.8rem;font-weight:400;color:var(--text-dim);">/月</span></div>
+            <div style="font-size:0.75rem;color:var(--text-dim);">月4回スペース利用料無料</div>
+          </div>
+          <div style="background:var(--tag-bg);border-radius:8px;padding:1rem;text-align:center;border:1px solid var(--text);">
+            <div style="font-size:0.7rem;color:var(--text-dim);">フリーパス</div>
+            <div style="font-size:1.5rem;font-weight:800;">5,000円<span style="font-size:0.8rem;font-weight:400;color:var(--text-dim);">/月</span></div>
+            <div style="font-size:0.75rem;color:var(--text-dim);">月4回シーシャ1台込み（通常の43%OFF）</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center;color:var(--text-dim);font-size:0.8rem;margin-top:1rem;">※ 飲食持ち込み自由・ゴミはお持ち帰り / 20歳未満の方はご入場いただけません</p>
+    </div>
+  </section>
+
+  <!-- ==================== UNIT ECONOMICS ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Unit Economics</div>
+      <h2>原価構造と利益率</h2>
+      <p class="section-desc">シーシャの原価率は15〜25%。飲食業で最も利益率が高い業態のひとつ。</p>
+
+      <div class="card">
+        <h3>シーシャ1台1セッションの原価</h3>
+        <div class="table-wrap" style="margin-top:0.5rem;">
+          <table>
+            <thead><tr><th>項目</th><th>数量</th><th>単価</th><th>小計</th></tr></thead>
+            <tbody>
+              <tr><td>フレーバー</td><td>10g</td><td>~25円/g</td><td><strong>250円</strong></td></tr>
+              <tr><td>ココナッツ炭</td><td>6個</td><td>~12円/個</td><td><strong>72円</strong></td></tr>
+              <tr><td>マウスピース</td><td>1〜2個</td><td>~12円</td><td><strong>18円</strong></td></tr>
+              <tr><td>その他消耗品</td><td>—</td><td>—</td><td><strong>5円</strong></td></tr>
+              <tr style="background:#f7f7f7;"><td colspan="3"><strong>合計</strong></td><td><strong>~345円</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>シナリオ</th><th>売上</th><th>原価</th><th>粗利</th><th>原価率</th></tr></thead>
+          <tbody>
+            <tr><td>ソロ（1人）</td><td>2,200円</td><td>345円</td><td class="st st-yes">1,855円</td><td>16%</td></tr>
+            <tr><td>デュオ（2人）</td><td>3,200円</td><td>345円</td><td class="st st-yes">2,855円</td><td>11%</td></tr>
+            <tr style="background:#f0fdf4;"><td><strong>グループ（3人・2台）</strong></td><td><strong>5,000円</strong></td><td>690円</td><td class="st st-yes"><strong>4,310円</strong></td><td>14%</td></tr>
+            <tr><td>パーティ（6人・4台）</td><td>8,000円</td><td>1,380円</td><td class="st st-yes">6,620円</td><td>17%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REVENUE SIM ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Revenue Simulation</div>
+      <h2>収益シミュレーション</h2>
+      <p class="section-desc">満席率100%の理論値ではなく、現実的な稼働率で計算。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>通常月（9ヶ月）</th><th>長期休暇（3ヶ月）</th></tr></thead>
+          <tbody>
+            <tr><td>平日売上</td><td>5,400円 × 14日 = 75,600円</td><td>× 50% = 37,800円</td></tr>
+            <tr><td>週末売上</td><td>12,000円 × 8日 = 96,000円</td><td>× 50% = 48,000円</td></tr>
+            <tr><td><strong>月間売上</strong></td><td><strong>171,600円</strong></td><td><strong>85,800円</strong></td></tr>
+            <tr><td>経費</td><td>104,500円</td><td>104,500円</td></tr>
+            <tr style="background:#f0fdf4;"><td><strong>月間利益</strong></td><td class="st st-yes"><strong>67,100円</strong></td><td class="st st-no"><strong>-18,700円</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top:1rem;">
+        <div class="stat-card">
+          <div class="label">年間利益（サブスクなし）</div>
+          <div class="val">57.6万</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--text);">
+          <div class="label">年間利益（サブスク20人）</div>
+          <div class="val" style="color:var(--green);">177.6万</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--red);margin-top:1rem;">
+        <h3>💀 最悪シナリオ（LAGOSの「1日客1人」が来たら）</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">大阪のLAGOSは開業後の6〜9月に「1日の客が1人の日」を経験。あなたにも起きうる。</p>
+        <div class="table-wrap" style="margin-top:0.5rem;">
+          <table>
+            <tbody>
+              <tr><td>月間売上（稼働率30%）</td><td><strong>85,800円</strong></td></tr>
+              <tr><td>経費</td><td>104,500円</td></tr>
+              <tr style="background:#fef2f2;"><td><strong>月間赤字</strong></td><td class="st st-no"><strong>-18,700円/月</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-top:0.5rem;">→ 運転資金36万を確保していれば最悪シナリオでも1年以上耐えられる。間借りテストをしていればこのリスク自体を事前に検知できる。</p>
+      </div>
+
+      <div class="box box-blue" style="margin-top:1rem;">
+        <h4>副業設計が現実的</h4>
+        <p>月利益6.7万円のビジネスは本業にはならない。バイト＋シーシャ屋の2本柱、または週3〜4日営業のスモールビジネスとして設計するのが堅実。それでも年間57〜177万円の副収入は大きい。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROPERTIES ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Properties</div>
+      <h2>候補物件ランキング</h2>
+      <p class="section-desc">用途地域・岩手大学からの距離・家賃を総合評価。近隣商業地域の本町通が最有力。</p>
+
+      <div class="table-wrap" style="margin-bottom:1.5rem;">
+        <table>
+          <thead><tr><th>物件</th><th>用途地域</th><th>岩大から</th><th>シーシャ店</th><th>深夜営業</th></tr></thead>
+          <tbody>
+            <tr><td><strong>サニーフラット</strong></td><td><span class="tag tag-green">近隣商業</span></td><td>徒歩15分</td><td class="st st-yes">制限なし</td><td class="st st-yes">可能</td></tr>
+            <tr><td><strong>本町通 貸店舗</strong></td><td><span class="tag tag-green">近隣商業</span></td><td>徒歩13〜19分</td><td class="st st-yes">制限なし</td><td class="st st-yes">可能</td></tr>
+            <tr><td><strong>藤田テナント</strong></td><td><span class="tag tag-orange">住居専用（推定）</span></td><td>徒歩3〜5分</td><td class="st st-maybe">500m²以下</td><td class="st st-no">不可</td></tr>
+            <tr><td><strong>上田 飲食店可</strong></td><td><span class="tag tag-orange">住居専用（推定）</span></td><td>徒歩3〜5分</td><td class="st st-maybe">500m²以下</td><td class="st st-no">不可</td></tr>
+            <tr><td><strong>館向町</strong></td><td><span class="tag">第一種住居</span></td><td>徒歩20〜30分</td><td class="st st-yes">3,000m²以下</td><td class="st st-no">不可</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--green);">
+        <h3>1位: サニーフラット 1F — 5.5万円/月</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目3-30 / 28.98m² / 近隣商業地域 / 敷金0・礼金0・即入居可</p>
+        <p style="font-size:0.85rem;">用途地域の制限なし。初期費用ゼロが最大の魅力。「撤退のしやすさ」という最強の武器。</p>
+      </div>
+      <div class="card">
+        <h3>2位: 本町通2丁目 貸店舗 — 6万円/月</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目 / 64.80m² / 近隣商業地域</p>
+        <p style="font-size:0.85rem;">6万円で65m²は破格。広さを活かしてゆったりした貸切空間を作れる。</p>
+      </div>
+      <div class="card">
+        <h3>3位: 藤田テナント 4号 — 6.5万円/月</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市上田2丁目 / 39.70m² / 第二種中高層住居専用地域（推定）</p>
+        <p style="font-size:0.85rem;">岩手大学から徒歩3〜5分。距離は最強だが住居専用地域のためリスクあり。</p>
+      </div>
+
+      <h3 style="margin-top:1.5rem;margin-bottom:0.75rem;">物件検索サイト・不動産会社</h3>
+      <div class="link-grid">
+        <a href="https://www.tenantmorioka.com/" target="_blank" class="link-card"><strong>テナント盛岡</strong><span>盛岡テナント専門38年 / TEL: 019-629-3010</span></a>
+        <a href="https://morioka.tenant-nw.jp/" target="_blank" class="link-card"><strong>テナントショップ盛岡</strong><span>盛岡のテナント専門サイト</span></a>
+        <a href="https://www.prowise.info/" target="_blank" class="link-card"><strong>プロワイズ</strong><span>開店フルサポート（融資・内装・許認可）</span></a>
+        <a href="https://www.athome.co.jp/rent_store/bar-gy/iwate/morioka-city/list/" target="_blank" class="link-card"><strong>アットホーム（バー向け）</strong><span>盛岡市のバー・スナック出店可物件</span></a>
+        <a href="https://www.athome.co.jp/rent_store/inuki-kd/iwate/morioka-city/list/" target="_blank" class="link-card"><strong>アットホーム（居抜き）</strong><span>盛岡市の居抜き物件</span></a>
+        <a href="https://www2.wagmap.jp/morioka-sp/" target="_blank" class="link-card"><strong>もりおか便利マップ</strong><span>用途地域を番地レベルで確認</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMPETITORS ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Competitors</div>
+      <h2>盛岡の既存シーシャ店</h2>
+      <p class="section-desc">全店が中央通・内丸・菜園に集中。上田・本町エリアにはゼロ。</p>
+
+      <div class="comp-grid">
+        <div class="comp-card"><h4>hookapooka</h4><div class="loc">中央通1-11-7</div><div class="desc">シーシャ1,500円 + ドリンク500円</div></div>
+        <div class="comp-card"><h4>popo sheesha</h4><div class="loc">内丸4-14 2F</div><div class="desc">シーシャ1,800円 + ワンドリンク500円〜</div></div>
+        <div class="comp-card"><h4>BLACK Rabbit</h4><div class="loc">中央通1-7-13</div><div class="desc">シーシャ2,000円 + ドリンク400円〜</div></div>
+        <div class="comp-card"><h4>シーシャヤ ミント</h4><div class="loc">菜園2-4-11</div><div class="desc">シーシャ1,500円〜 / 飲み放題付4,000円</div></div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:1.5rem;">
+        <table>
+          <thead><tr><th></th><th>既存店（中央通）</th><th>BiPシーシャ</th><th>差</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1人</strong></td><td>~2,500円</td><td><strong>2,200円</strong></td><td class="st st-yes">300円安い</td></tr>
+            <tr><td><strong>3人</strong></td><td>~7,500円</td><td><strong>5,000円</strong></td><td class="st st-yes">33%安い</td></tr>
+            <tr style="background:#f0fdf4;"><td><strong>5人</strong></td><td>~12,500円</td><td><strong>6,000円</strong></td><td style="color:var(--green);font-weight:700;">52%安い</td></tr>
+            <tr><td><strong>空間</strong></td><td>他の客あり</td><td><strong>完全貸切</strong></td><td>—</td></tr>
+            <tr><td><strong>飲食</strong></td><td>店のドリンク必須</td><td><strong>持ち込みOK</strong></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REAL CASES ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Real Cases</div>
+      <h2>実例から学ぶ — 失敗と成功</h2>
+      <p class="section-desc">全国のシーシャ屋のリアルな体験談を調査。教訓をプラン全体に反映済み。</p>
+
+      <div class="grid-3" style="margin-bottom:1.5rem;">
+        <div class="stat-card"><div class="label">全国シーシャ店舗数</div><div class="val">~1,600</div><div class="sub">2024年10月。東京はスタバ超え</div></div>
+        <div class="stat-card" style="border-color:var(--red);"><div class="label">年間閉店数</div><div class="val" style="color:var(--red);">~40店</div><div class="sub">2023年〜 淘汰フェーズ</div></div>
+        <div class="stat-card" style="border-color:var(--red);"><div class="label">CO中毒事故（5年半）</div><div class="val" style="color:var(--red);">64件</div><div class="sub">41件が救急搬送。8割が20代</div></div>
+      </div>
+
+      <h3 style="margin-bottom:0.75rem;">失敗</h3>
+
+      <div class="card" style="border-left:3px solid var(--red);">
+        <h3>チルイン（都内12店舗）— 売上9.4億から破産</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">「シーシャのあるリビング」で12店舗まで急拡大。ピーク9.4億→競合増加で8.2億に低下→2026年3月破産。負債2.5億。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>教訓:</strong> 急拡大は競争激化で致命傷。→ BiPシーシャは1店舗のスモールビジネス。この罠には落ちない。</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red);">
+        <h3>B-Side（六本木）— 3年で心が折れた</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">経営不振ではなく「疲弊」で閉店。1人で3年3ヶ月休みなし。スタッフに任せると売上30%に暴落。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>教訓:</strong> 属人経営は体力の限界で終わる。→ 週3〜4日の副業設計で回避。</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red);">
+        <h3>ばんびえん（高田馬場）— 軌道に乗るまで2年</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">初日38,500円→翌日10,500円に急落。パイプ10本しかなく客に提供不能。ソファが買えない。消費税を理解してなくて大打撃。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>教訓:</strong> 運転資金は最低6ヶ月分。→ 初期投資とは別に36万を確保。</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red);">
+        <h3>Luna（愛媛県松山市）— 4ヶ月で閉店</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">タコス×シーシャ。地方でニッチ×ニッチは成立しなかった。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>教訓:</strong> 地方では1つのニッチに全振り。→ 「シーシャ×学生」に集中。余計な要素を足すな。</p>
+      </div>
+
+      <h3 style="margin-top:2rem;margin-bottom:0.75rem;">成功</h3>
+
+      <div class="card" style="border-left:3px solid var(--green);">
+        <h3>KIMET（浅草・10席）— 「聖地」になった男</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">シーシャ歴22年のシノ氏。10席の完全予約制で常に予約困難。「神のシーシャ」で全国から愛好家が訪れる。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>学び:</strong> 圧倒的品質があれば10席でもブランドになる。シーシャの作り方を死ぬほど練習しろ。</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);">
+        <h3>LAGOS（大阪・心斎橋）— 脱サラの半年記録</h3>
+        <p style="font-size:0.85rem;color:var(--text-dim);">6〜9月はギリギリ黒字。1日の客が1人の日も。10月にようやく売上過去最高。Instagram動画が最高13,000再生。</p>
+        <p style="font-size:0.85rem;margin-top:0.25rem;"><strong>学び:</strong> 最初の半年は地獄。運転資金と精神力がすべて。副業なら精神的にも耐えやすい。</p>
+      </div>
+
+      <h3 style="margin-top:2rem;margin-bottom:0.75rem;">業界リスク</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>リスク</th><th>内容</th><th>BiPシーシャへの影響</th></tr></thead>
+          <tbody>
+            <tr><td>たばこ税増税</td><td>2027〜2029年に段階的に増税</td><td class="st st-maybe">中 — 原価率が低いので吸収可能</td></tr>
+            <tr><td>規制強化</td><td>厚労省が新型たばこ規制を議論中</td><td class="st st-maybe">中 — 将来対象になる可能性</td></tr>
+            <tr><td>市場飽和（都市部）</td><td>東京はスタバ超え。淘汰フェーズ</td><td class="st st-yes">低 — 盛岡は4店のみ</td></tr>
+            <tr style="background:#fef2f2;"><td><strong>CO中毒事故</strong></td><td>5年半で64件。店舗の6割で症状経験</td><td class="st st-no"><strong>最大 — 事故=即廃業</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VENTILATION ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Ventilation</div>
+      <h2>換気設備</h2>
+      <p class="section-desc">ここだけはケチるな。シーシャ炭はCOを大量に発生させる。換気不足は一発で廃業 or 事故。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>必要スペック（30〜40m²）</th></tr></thead>
+          <tbody>
+            <tr><td>必要排気量</td><td><strong>800〜1,200 m³/h 以上</strong></td></tr>
+            <tr><td>換気回数</td><td><strong>10〜15回/時間</strong></td></tr>
+            <tr><td>入口風速</td><td><strong>0.2m/s以上</strong>（法的基準）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="vent-diagram">┌──────────────────────────────────────┐
+│  【天井付近】                          │
+│  排気ファン ×2〜3台 → ダクト → 屋外排気  │
+│                                        │
+│     🪑 ソファ   🪑 ソファ   🪑 ソファ   │
+│       💨          💨          💨        │
+│     シーシャ台  シーシャ台  シーシャ台    │
+│                                        │
+│  【壁面下部】                          │
+│  ←── 自然給気口（入口付近）             │
+│                                        │
+│  ⚠️ CO検知器 ×2台                     │
+└──────────────────────────────────────┘
+  ※ 排気口と給気口は対角線上に配置</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>パターン</th><th>費用</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td><strong>居抜き（ダクト既存）</strong></td><td><strong>50〜100万円</strong></td><td>← これを狙う</td></tr>
+            <tr><td>スケルトン（壁出し排気）</td><td>80〜150万円</td><td>2026年の資材高騰込み</td></tr>
+            <tr><td style="color:var(--red);">地下物件</td><td>200万円〜</td><td>避けるべき</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box box-red">
+        <h4>CO（一酸化炭素）中毒に注意</h4>
+        <p>5年半で64件のCO中毒事故。全国店舗の6割で症状経験あり。シーシャ1回で紙巻きタバコ4〜5本分のCOが発生。<strong>CO検知器は必ず2台以上設置。</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RISKS ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Operational Risks</div>
+      <h2>運営リスクと対策</h2>
+      <p class="section-desc">「学生×貸切×持ち込み」は無法地帯化のリスクと隣り合わせ。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>リスク</th><th>確率</th><th>対策</th></tr></thead>
+          <tbody>
+            <tr><td>持ち込み酒による泥酔・嘔吐</td><td class="st st-no">確実</td><td>入店時の同意書。嘔吐クリーニング費5,000円を明記</td></tr>
+            <tr><td>炭の落下・台転倒による火災</td><td class="st st-no">確実</td><td>床を焦げにくい素材に。火災保険の借家人賠償責任特約</td></tr>
+            <tr><td>深夜の騒音→近隣通報</td><td class="st st-maybe">高確率</td><td>営業24時まで。防音対策。開業前に近隣全戸へ挨拶</td></tr>
+            <tr><td>20歳未満の入場</td><td class="st st-maybe">高確率</td><td>入店時に全員の身分証確認。1人でも未成年→全員不可</td></tr>
+            <tr><td>貸切モデルの回転率の壁</td><td class="st st-no">構造的</td><td>完全貸切は3人以上に限定。ソロ・デュオは相席あり</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STRATEGY ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Strategy Boost</div>
+      <h2>売上を伸ばす3つの戦略</h2>
+      <p class="section-desc">「シーシャを吸う場所」ではなく「シーシャがあるリビング」として売る。</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>🎮 プロジェクター + Switch</h3>
+          <p style="font-size:0.85rem;color:var(--text-dim);">スマブラ・Netflix環境。滞在時間を伸ばし延長料金を積み上げる。コスト: 6〜8万円。</p>
+        </div>
+        <div class="card">
+          <h3>📚 昼の部（コワーキング）</h3>
+          <p style="font-size:0.85rem;color:var(--text-dim);">平日昼はシーシャなしの勉強スペースとして開放。2時間500円。認知度UP→夜のシーシャへ。</p>
+        </div>
+        <div class="card">
+          <h3>🎉 イベント営業</h3>
+          <p style="font-size:0.85rem;color:var(--text-dim);">サークル打ち上げ・誕生日会パッケージ。「10人3時間12,000円」で長期休暇前の需要を取る。</p>
+        </div>
+      </div>
+
+      <div class="box box-blue" style="margin-top:0.75rem;">
+        <h4>集客の核心</h4>
+        <p>最初のターゲットは岩大の軽音部・美術部・写真部。「1人1,667円」の衝撃を体験させれば、サークル内→学部→学年と口コミが広がる。Instagram / TikTokで「岩大生限定・5人1,667円貸切持ち込みシーシャ」を爆推し。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEGOTIATION ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Negotiation</div>
+      <h2>物件契約の交渉術</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>オーナーの不安</th><th>対策</th></tr></thead>
+          <tbody>
+            <tr><td>火災リスク</td><td>防火シート+消火器+炭火対応火災保険の証書を見せる</td></tr>
+            <tr><td>煙・臭い汚損</td><td>換気設備の設計図を提示+退去時クロス全面張替えを自己負担と提案</td></tr>
+            <tr><td>近隣苦情</td><td>排気口の位置計画+開業前の近隣挨拶を約束</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:0.75rem;">
+        <h3>契約書で必ず確認すること</h3>
+        <ul class="cl">
+          <li>「喫煙を伴う営業」が許可されているか</li>
+          <li>炭火の使用が明示的にOKか</li>
+          <li>ダクト工事（壁の穴あけ）の許可</li>
+          <li>原状回復の範囲と費用上限</li>
+          <li class="warn">「火気厳禁」条項がないか</li>
+          <li class="warn">保証金は通常の1.5〜2倍を自ら提案すると信頼感UP</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INVESTMENT ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Investment</div>
+      <h2>初期投資の見積もり</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>費用</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>敷金・保証金</td><td>0〜20万円</td><td>サニーフラットなら0円</td></tr>
+            <tr><td>仲介手数料</td><td>5〜7万円</td><td></td></tr>
+            <tr><td>換気設備</td><td>50〜100万円</td><td>80万覚悟。2026年の資材高騰込み</td></tr>
+            <tr><td>シーシャ台 × 5台</td><td>15〜25万円</td><td></td></tr>
+            <tr><td>ソファ・テーブル</td><td>10〜20万円</td><td></td></tr>
+            <tr><td>プロジェクター + Switch</td><td>6〜8万円</td><td></td></tr>
+            <tr><td>炭・フレーバー初期仕入</td><td>5〜10万円</td><td></td></tr>
+            <tr><td>CO検知器・消火器・床材・火災保険</td><td>5〜10万円</td><td></td></tr>
+            <tr style="background:#ffedd5;"><td><strong>運転資金（6ヶ月分）</strong></td><td><strong>36万円</strong></td><td>ばんびえん・LAGOSの教訓</td></tr>
+            <tr style="background:#f7f7f7;"><td><strong>合計</strong></td><td><strong>130〜240万円</strong></td><td>居抜き+敷礼ゼロで150万前後が現実的</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ACTION PLAN ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Action Plan</div>
+      <h2>やることリスト</h2>
+      <p class="section-desc">出張販売許可は審査に2〜3ヶ月。物件探しと並行して今すぐ動く。</p>
+
+      <div class="box box-green" style="margin-bottom:1.5rem;">
+        <h4>リスクを最小化する「間借り検証」ルート（推奨）</h4>
+        <p>いきなり物件を借りるのではなく、まず盛岡のバーやカフェで週1〜2日間借りしてテストマーケティングする。初期投資は15〜20万円だけ。失敗しても致命傷にならない。</p>
+      </div>
+
+      <div class="steps">
+        <div class="step step-red" data-step="0">
+          <h4 style="color:var(--red);">盛岡市保健所に電話（今日中にやれ）</h4>
+          <p>「持ち込み飲食のみのシーシャ店に飲食店営業許可は必要か？」を確認。ここがNGなら全プランが変わる。<br><a href="tel:0196038311">019-603-8311</a> / <a href="tel:0196038305">019-603-8305</a></p>
+        </div>
+        <div class="step" data-step="1">
+          <h4>CLOUD SHOPに連絡</h4>
+          <p>出張販売許可の無料申請を依頼。審査2〜3ヶ月。保健所確認と並行。<br><a href="https://shop.cloud-jp.net" target="_blank">shop.cloud-jp.net</a></p>
+        </div>
+        <div class="step" data-step="2">
+          <h4>間借り先を探す or 物件内見</h4>
+          <p>間借りルート: バー・カフェに「週1〜2日シーシャイベント」を交渉。<br>物件ルート: サニーフラット・本町通貸店舗を内見。</p>
+        </div>
+        <div class="step" data-step="3">
+          <h4>テナント盛岡に電話</h4>
+          <p>「喫煙OK・ダクト工事OKの小規模テナント」で相談。ネットに出ない物件がある。<br><a href="tel:0196293010">019-629-3010</a></p>
+        </div>
+        <div class="step" data-step="3.5">
+          <h4>シーシャの作り方を死ぬほど練習</h4>
+          <p>KIMETが証明した通り、味が全て。盛岡の既存店に通って研究。最低100回は作ってからテスト営業に臨め。</p>
+        </div>
+        <div class="step" data-step="4">
+          <h4>テストマーケティング（3ヶ月）</h4>
+          <p>間借り or 物件で営業開始。客数・リピート率・客単価のデータを取る。軽音部・美術部・写真部を直撃。</p>
+        </div>
+        <div class="step" data-step="5">
+          <h4>データに基づいて判断</h4>
+          <p>3ヶ月のデータでスケール or ピボット or 撤退を判断。間借りなら撤退コストはほぼゼロ。</p>
+        </div>
+        <div class="step" data-step="6">
+          <h4>物件確定・換気設備・内装</h4>
+          <p>データが良ければ物件を正式契約。換気工事、内装。</p>
+        </div>
+        <div class="step" data-step="7">
+          <h4>グランドオープン + サブスク開始</h4>
+          <p>喫煙目的施設の届出。テスト期間の常連にサブスクを案内。</p>
+        </div>
+      </div>
+
+      <div class="box box-red" style="margin-top:1rem;">
+        <h4>タイムライン</h4>
+        <p>
+          <strong style="color:var(--red);">今日</strong>: 盛岡市保健所に電話 + CLOUD SHOPに連絡 + 間借り先探し<br>
+          <strong>1〜2週間後</strong>: 間借り交渉 or 内見 + 用途地域確認<br>
+          <strong>1ヶ月後</strong>: テスト営業開始（シーシャ台3台で小さく）<br>
+          <strong>2〜3ヶ月後</strong>: 出張販売許可おりる + データ蓄積<br>
+          <strong>4ヶ月後</strong>: データに基づきスケール判断<br>
+          <strong>5〜6ヶ月後</strong>: グランドオープン
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ASSESSMENT ==================== -->
+  <section>
+    <div class="container">
+      <div class="section-label">Overall Assessment</div>
+      <h2>総合評価</h2>
+
+      <div style="text-align:center;margin:2rem 0;">
+        <div class="score">8 / 10</div>
+        <p style="color:var(--text-dim);font-size:0.9rem;">副業としては超アリ。低投資・高マージン・ブルーオーシャン。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>評価</th><th>コメント</th></tr></thead>
+          <tbody>
+            <tr><td>コンセプト</td><td class="st st-yes">◎</td><td>貸切×持ち込み×大学至近は既存店が手を出せないポジション</td></tr>
+            <tr><td>料金設計</td><td class="st st-yes">◎</td><td>3プラン+サブスクで健全な利益構造</td></tr>
+            <tr><td>原価構造</td><td class="st st-yes">◎</td><td>原価率11-17%は飲食業最高水準</td></tr>
+            <tr><td>ターゲット市場</td><td class="st st-maybe">○</td><td>ニッチだが刺さる。20歳未満NGで市場が縮小</td></tr>
+            <tr style="background:#fef2f2;"><td>法務・許認可</td><td class="st st-no">△</td><td>飲食許可の要否が未確定。保健所確認が最優先</td></tr>
+            <tr><td>運営リスク</td><td class="st st-maybe">△</td><td>火災・泥酔・騒音。ハード面の防御が必須</td></tr>
+            <tr><td>収益性</td><td class="st st-maybe">○</td><td>年間57〜177万。副業として優秀</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box box-gray" style="margin-top:1.5rem;">
+        <h4>結論</h4>
+        <p>「勝算はあるが、運用で詰むリスクも高い」。全国では年間40店が閉店し、チルイン（12店舗・売上9.4億）すら破産した。しかしBiPシーシャは彼らとは構造が違う：</p>
+        <ul class="cl" style="margin:0.5rem 0;">
+          <li>チルインの失敗（急拡大→破産）→ 1店舗のスモールビジネス</li>
+          <li>B-Sideの失敗（属人経営→疲弊）→ 週3〜4日の副業設計</li>
+          <li>Lunaの失敗（ニッチ×ニッチ）→ 「シーシャ×学生」に全振り</li>
+          <li>ばんびえんの教訓（運転資金不足）→ 6ヶ月分36万を確保</li>
+          <li>KIMETの成功（10席で聖地化）→ 味の練習に全力</li>
+        </ul>
+        <p style="margin-top:0.75rem;"><strong>今日やること: 盛岡市保健所に電話1本。クリアしたら間借りで1回イベントを打て。岩大の軽音・美術部に声をかけて、「1人1,667円」が刺さるかの肌感覚を掴むのが先決。</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>BiPシーシャ</strong> — Build in Public Shisha / 2026年3月作成</p>
+    <p style="margin-top:0.25rem;">完全AI駆動。物件探しから料金設計まで全プロセスをAIと一緒に構築。</p>
+    <p style="margin-top:0.5rem;font-size:0.65rem;">※ 物件情報は調査時点のものです。法務・許認可は必ず管轄行政機関に直接確認してください。</p>
+  </footer>
+
+</body>
+</html>
