@@ -185,11 +185,14 @@
 <body>
 
   <!-- ==================== HERO ==================== -->
-  <header class="hero">
+  <header class="hero" style="padding-bottom:0;">
     <div class="container">
       <div class="label">Build in Public</div>
       <h1>BiPシーシャ</h1>
-      <p class="subtitle">完全AI駆動の貸切シーシャ。岩手大学生向け。<br>物件探しから料金設計まで、全プロセスを公開する。</p>
+      <p class="subtitle">完全AI駆動の貸切シーシャ。岩手大学生向け。<br>物件探しから料金設計、このサイト自体まで、全部AIと一緒に作った。<br>全プロセスを公開する。</p>
+    </div>
+    <div class="container" style="margin-top:2rem;padding-bottom:2rem;">
+      <img src="bip-shisha-hero.png" alt="BiP Shisha — Vapor Cartography" style="width:100%;object-fit:contain;display:block;border-radius:8px;">
     </div>
   </header>
 
@@ -199,11 +202,9 @@
       <div class="section-label">Story</div>
       <h2>なぜ作るのか</h2>
 
-      <div style="margin-bottom:1.5rem;">
-        <p>3年前にChatGPTがリリースされ、「2,3年後にはAIに仕事奪われる」と焦って、休学して岩手を飛び出し、東京で戦っていた。予想通り、無事AIに仕事を奪われた（解雇されたとかではない）ので、大学に戻ってきた。</p>
-        <p style="margin-top:0.75rem;">東京でも「数学勉強したい」「物理勉強したい」ってずっと言ってたので、本望。岩手でいっぱい勉強する。</p>
-        <p style="margin-top:0.75rem;">東京で仲良くしてくれた人ありがとうございました。友達がみんな院進すると思ったら、安心して休学、挑戦できた。ありがたい。みんなはあと1年だけどまたよろしくお願いします。</p>
-        <p style="margin-top:0.75rem;color:var(--text-dim);font-size:0.85rem;">予言して行動して的中させて帰ってきたやつ、流石に説得力ある説。</p>
+      <div class="box box-blue" style="margin-bottom:1.5rem;">
+        <h4>Build in Publicとは</h4>
+        <p>事業の構想・調査・意思決定のプロセスを、完成を待たずにリアルタイムで全公開する手法。失敗も数字も全部見せる。このページ自体がそのプロダクト。物件探しも料金設計も原価計算も、全部AIと一緒にやった過程がそのまま載っている。</p>
       </div>
 
       <div class="box box-gray">
@@ -218,6 +219,20 @@
         <h4>文脈</h4>
         <p>時定数がゼロに近づく世界で、同じ場所に集まって同じ空気を吸う体験の価値は上がる一方だと思っている。パーソナライゼーションが進むほど、「同じ空間で同じ時間を過ごす」こと自体が希少になる。まずはシーシャから。</p>
       </div>
+      <div class="box box-gray">
+        <h4>もう一つの動機</h4>
+        <p>東京で3年間AIと一緒に働いてきて、こいつの凄さを肌で知っている。物件探し、料金設計、原価計算、競合調査、法務確認、デザイン、このサイト自体——全部AIとの対話だけで作った。この過程を見せること自体が、AIが何をできるかのデモになる。盛岡の人にも、岩大の友達にも、「AIってこういうことができるんだ」を体感してほしい。</p>
+      </div>
+      <a href="https://www.instagram.com/p/DWDnGWvDpE8/" target="_blank" style="text-decoration:none;display:block;">
+        <blockquote style="margin:1rem 0 0 0;padding:1.25rem 1.5rem;border-left:3px solid var(--border);background:#f9f9f9;border-radius:0 8px 8px 0;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderLeftColor='#1A1A1A'" onmouseout="this.style.borderLeftColor='var(--border)'">
+          <img src="img/instagram-ai.png" alt="AIに仕事奪われた" style="width:100%;border-radius:6px;margin-bottom:1rem;">
+          <p style="font-size:0.9rem;color:var(--text);">3年前にChatGPTがリリースされ、2,3年後にはAIに仕事奪われると焦って、休学、岩手を飛び出し、東京で戦ってたんですが、予想通り無事AIに仕事奪われた（解雑されたとかではないです）ので、大学に戻ってきました。</p>
+          <p style="font-size:0.9rem;margin-top:0.75rem;color:var(--text);">東京でも「数学勉強したい」「物理勉強したい」ってずっと言ってたので、本望。岩手でいっぱい勉強したいと思います。</p>
+          <p style="font-size:0.9rem;margin-top:0.75rem;color:var(--text);">東京で仲良くしてくれた人ありがとうございました。友達がみんな院進すると思ったら、安心して休学、挑戦できた。ありがたい。みんなはあと1年だけどまたよろしくお願いします。</p>
+          <p style="font-size:0.9rem;margin-top:0.75rem;color:var(--text-dim);font-style:italic;">予言して行動して的中させて帰ってきたやつ流石に説得力ある説</p>
+          <p style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-dim);">— @konaito_ · Instagram, 2026.3</p>
+        </blockquote>
+      </a>
     </div>
   </section>
 
@@ -395,6 +410,10 @@
         </div>
       </div>
 
+      <div style="margin:1rem 0;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-cost.png" alt="Cost breakdown" style="width:100%;display:block;">
+      </div>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th>シナリオ</th><th>売上</th><th>原価</th><th>粗利</th><th>原価率</th></tr></thead>
@@ -455,6 +474,10 @@
         <p style="font-size:0.85rem;color:var(--text-dim);margin-top:0.5rem;">→ 運転資金36万を確保していれば最悪シナリオでも1年以上耐えられる。間借りテストをしていればこのリスク自体を事前に検知できる。</p>
       </div>
 
+      <div style="margin:1.5rem 0;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-revenue.png" alt="Monthly revenue chart" style="width:100%;display:block;">
+      </div>
+
       <div class="box box-blue" style="margin-top:1rem;">
         <h4>副業設計が現実的</h4>
         <p>月利益6.7万円のビジネスは本業にはならない。バイト＋シーシャ屋の2本柱、または週3〜4日営業のスモールビジネスとして設計するのが堅実。それでも年間57〜177万円の副収入は大きい。</p>
@@ -483,19 +506,34 @@
       </div>
 
       <div class="card" style="border-left:3px solid var(--green);">
-        <h3>1位: サニーフラット 1F — 5.5万円/月</h3>
-        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目3-30 / 28.98m² / 近隣商業地域 / 敷金0・礼金0・即入居可</p>
-        <p style="font-size:0.85rem;">用途地域の制限なし。初期費用ゼロが最大の魅力。「撤退のしやすさ」という最強の武器。</p>
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:1rem;align-items:start;">
+          <a href="https://www.urban777.com/rent/detail/30077-187-07c56188" target="_blank"><img src="img/sani-flatto.jpg" alt="サニーフラット" style="width:100%;border-radius:6px;border:1px solid var(--border);object-fit:cover;aspect-ratio:4/3;"></a>
+          <div>
+            <h3>1位: サニーフラット 1F — 5.5万円/月</h3>
+            <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目3-30 / 28.98m² / 近隣商業地域 / 敷金0・礼金0・即入居可</p>
+            <p style="font-size:0.85rem;">用途地域の制限なし。初期費用ゼロが最大の魅力。「撤退のしやすさ」という最強の武器。</p>
+          </div>
+        </div>
       </div>
       <div class="card">
-        <h3>2位: 本町通2丁目 貸店舗 — 6万円/月</h3>
-        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目 / 64.80m² / 近隣商業地域</p>
-        <p style="font-size:0.85rem;">6万円で65m²は破格。広さを活かしてゆったりした貸切空間を作れる。</p>
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:1rem;align-items:start;">
+          <a href="https://www.falcon-estate.co.jp/kasi-tenpo/detail-68e7173d9eb40a371bf700df/" target="_blank"><img src="img/honchodori.jpeg" alt="本町通2丁目 貸店舗" style="width:100%;border-radius:6px;border:1px solid var(--border);object-fit:cover;aspect-ratio:4/3;"></a>
+          <div>
+            <h3>2位: 本町通2丁目 貸店舗 — 6万円/月</h3>
+            <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市本町通2丁目 / 64.80m² / 近隣商業地域</p>
+            <p style="font-size:0.85rem;">6万円で65m²は破格。広さを活かしてゆったりした貸切空間を作れる。</p>
+          </div>
+        </div>
       </div>
       <div class="card">
-        <h3>3位: 藤田テナント 4号 — 6.5万円/月</h3>
-        <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市上田2丁目 / 39.70m² / 第二種中高層住居専用地域（推定）</p>
-        <p style="font-size:0.85rem;">岩手大学から徒歩3〜5分。距離は最強だが住居専用地域のためリスクあり。</p>
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:1rem;align-items:start;">
+          <a href="https://www.falcon-estate.co.jp/kasi-tenpo/detail-664afbbb85daa51085a8428e/" target="_blank"><img src="img/fujita.jpeg" alt="藤田テナント 4号" style="width:100%;border-radius:6px;border:1px solid var(--border);object-fit:cover;aspect-ratio:4/3;"></a>
+          <div>
+            <h3>3位: 藤田テナント 4号 — 6.5万円/月</h3>
+            <p style="font-size:0.85rem;color:var(--text-dim);">盛岡市上田2丁目 / 39.70m² / 第二種中高層住居専用地域（推定）</p>
+            <p style="font-size:0.85rem;">岩手大学から徒歩3〜5分。距離は最強だが住居専用地域のためリスクあり。</p>
+          </div>
+        </div>
       </div>
 
       <h3 style="margin-top:1.5rem;margin-bottom:0.75rem;">物件検索サイト・不動産会社</h3>
@@ -524,7 +562,15 @@
         <div class="comp-card"><h4>シーシャヤ ミント</h4><div class="loc">菜園2-4-11</div><div class="desc">シーシャ1,500円〜 / 飲み放題付4,000円</div></div>
       </div>
 
-      <div class="table-wrap" style="margin-top:1.5rem;">
+      <div style="margin:1.5rem 0;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-map.png" alt="Competitor distance map" style="width:100%;display:block;">
+      </div>
+
+      <div style="margin:1rem 0;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-competitor.png" alt="Competitor price comparison" style="width:100%;display:block;">
+      </div>
+
+      <div class="table-wrap" style="margin-top:1rem;">
         <table>
           <thead><tr><th></th><th>既存店（中央通）</th><th>BiPシーシャ</th><th>差</th></tr></thead>
           <tbody>
@@ -661,6 +707,10 @@
       <h2>運営リスクと対策</h2>
       <p class="section-desc">「学生×貸切×持ち込み」は無法地帯化のリスクと隣り合わせ。</p>
 
+      <div style="margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-risk.png" alt="Risk matrix" style="width:100%;display:block;">
+      </div>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th>リスク</th><th>確率</th><th>対策</th></tr></thead>
@@ -768,6 +818,10 @@
       <div class="section-label">Action Plan</div>
       <h2>やることリスト</h2>
       <p class="section-desc">出張販売許可は審査に2〜3ヶ月。物件探しと並行して今すぐ動く。</p>
+
+      <div style="margin-bottom:1.5rem;overflow:hidden;border:1px solid var(--border);border-radius:8px;">
+        <img src="chart-timeline.png" alt="Action timeline" style="width:100%;display:block;">
+      </div>
 
       <div class="box box-green" style="margin-bottom:1.5rem;">
         <h4>リスクを最小化する「間借り検証」ルート（推奨）</h4>
