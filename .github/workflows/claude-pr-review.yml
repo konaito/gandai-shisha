@@ -1,0 +1,38 @@
+name: Claude PR Quality Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  claude-quality-review:
+    if: github.event.pull_request.user.login != 'konaito'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude PR Quality Review
+        id: claude-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            このPRの品質をレビューしてください。
+
+            ## レビュー観点
+            1. **コード品質**: 可読性、命名規則、コード構造
+            2. **セキュリティ**: XSS、インジェクション等の脆弱性
+            3. **パフォーマンス**: 非効率な処理やボトルネック
+            4. **ベストプラクティス**: 標準的な書き方に沿っているか
+            5. **総合評価**: ✅ 承認 / ⚠️ 要修正 / ❌ 却下
+
+            簡潔で具体的なフィードバックを日本語でコメントしてください。
