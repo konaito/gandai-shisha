@@ -32,36 +32,32 @@ export function Pricing() {
           </div>
         </div>
 
-        <div className="card">
-          <h3>オプション</h3>
-          <div className="table-wrap" style={{ marginTop: "0.5rem" }}>
-            <table>
-              <thead><tr><th>項目</th><th>料金</th><th>原価</th></tr></thead>
-              <tbody>
-                <tr><td>延長</td><td><strong>500円</strong>/30分</td><td>—</td></tr>
-                <tr><td>アイスホース</td><td><strong>200円</strong></td><td>~0円</td></tr>
-                <tr><td>フレーバーMIX</td><td><strong>200円</strong></td><td>+50円</td></tr>
-                <tr><td>トップ替え</td><td><strong>800円</strong></td><td>+300円</td></tr>
-                <tr><td>デクラウド（ニコチンフリー）</td><td><strong>+300円</strong></td><td>+100円</td></tr>
-              </tbody>
-            </table>
-          </div>
+        <h3 style={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}>オプション</h3>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>料金</th><th>原価</th></tr></thead>
+            <tbody>
+              <tr><td>延長</td><td><strong>500円</strong>/30分</td><td>—</td></tr>
+              <tr><td>アイスホース</td><td><strong>200円</strong></td><td>~0円</td></tr>
+              <tr><td>フレーバーMIX</td><td><strong>200円</strong></td><td>+50円</td></tr>
+              <tr><td>トップ替え</td><td><strong>800円</strong></td><td>+300円</td></tr>
+              <tr><td>デクラウド（ニコチンフリー）</td><td><strong>+300円</strong></td><td>+100円</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <div className="card">
-          <h3>月額サブスク</h3>
-          <p style={{ fontSize: "0.85rem", color: "var(--text-dim)", marginBottom: "0.5rem" }}>長期休暇の売上減を吸収する仕組み。20人加入で月10万の固定収入。</p>
-          <div className="grid-2">
-            <div style={{ background: "var(--tag-bg)", borderRadius: "8px", padding: "1rem", textAlign: "center" }}>
-              <div style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>シーシャパス</div>
-              <div style={{ fontSize: "1.5rem", fontWeight: 800 }}>3,000円<span style={{ fontSize: "0.8rem", fontWeight: 400, color: "var(--text-dim)" }}>/月</span></div>
-              <div style={{ fontSize: "0.75rem", color: "var(--text-dim)" }}>月4回スペース利用料無料</div>
-            </div>
-            <div style={{ background: "var(--tag-bg)", borderRadius: "8px", padding: "1rem", textAlign: "center", border: "1px solid var(--text)" }}>
-              <div style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>フリーパス</div>
-              <div style={{ fontSize: "1.5rem", fontWeight: 800 }}>5,000円<span style={{ fontSize: "0.8rem", fontWeight: 400, color: "var(--text-dim)" }}>/月</span></div>
-              <div style={{ fontSize: "0.75rem", color: "var(--text-dim)" }}>月4回シーシャ1台込み（通常の43%OFF）</div>
-            </div>
+        <h3 style={{ marginTop: "1.5rem", marginBottom: "0.25rem" }}>月額サブスク</h3>
+        <p style={{ fontSize: "0.85rem", color: "var(--text-dim)", marginBottom: "0.5rem" }}>長期休暇の売上減を吸収する仕組み。20人加入で月10万の固定収入。</p>
+        <div className="grid-2">
+          <div style={{ background: "var(--tag-bg)", borderRadius: "8px", padding: "1rem", textAlign: "center" }}>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>シーシャパス</div>
+            <div style={{ fontSize: "1.5rem", fontWeight: 800 }}>3,000円<span style={{ fontSize: "0.8rem", fontWeight: 400, color: "var(--text-dim)" }}>/月</span></div>
+            <div style={{ fontSize: "0.75rem", color: "var(--text-dim)" }}>月4回スペース利用料無料</div>
+          </div>
+          <div style={{ background: "var(--tag-bg)", borderRadius: "8px", padding: "1rem", textAlign: "center", border: "1px solid var(--text)" }}>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>フリーパス</div>
+            <div style={{ fontSize: "1.5rem", fontWeight: 800 }}>5,000円<span style={{ fontSize: "0.8rem", fontWeight: 400, color: "var(--text-dim)" }}>/月</span></div>
+            <div style={{ fontSize: "0.75rem", color: "var(--text-dim)" }}>月4回シーシャ1台込み（通常の43%OFF）</div>
           </div>
         </div>
 

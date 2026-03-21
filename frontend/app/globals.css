@@ -85,8 +85,8 @@ section h2 {
 
 /* Tables */
 .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 0.75rem; }
-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-thead { background: #f7f7f7; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--surface); }
+thead { background: var(--surface); }
 th { text-align: left; padding: 0.6rem 0.75rem; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); border-bottom: 1px solid var(--border); }
 td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
 tr:last-child td { border-bottom: none; }
@@ -234,6 +234,19 @@ footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-
   border-left-color: var(--text);
   background: var(--tag-bg);
 }
+.sidebar-category {
+  padding: 0.6rem 1.25rem 0.2rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.4rem 1.25rem;
+}
 /* Mobile hamburger */
 .hamburger-float {
   display: none;
@@ -275,6 +288,19 @@ footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-
   padding: 0.75rem 0;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
+}
+.mobile-menu-category {
+  padding: 0.8rem 0 0.2rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.mobile-menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 0;
 }
 .mobile-menu a {
   display: block;

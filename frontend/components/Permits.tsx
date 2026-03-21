@@ -56,25 +56,23 @@ export function Permits() {
           </table>
         </div>
 
-        <div className="card">
-          <h3>たばこ出張販売許可の取り方（最短ルート）</h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginBottom: '0.5rem' }}>
-            <a href="https://shop.cloud-jp.net" target="_blank" rel="noopener noreferrer">CLOUD SHOP</a>に頼めば<strong>無料</strong>で委託元になってくれる。登録免許税3,000円のみ。審査2〜3ヶ月。
-          </p>
-          <div className="table-wrap">
-            <table>
-              <tbody>
-                <tr>
-                  <td>JT盛岡支店</td>
-                  <td>盛岡市盛岡駅前通15-19 盛岡フコク生命ビル1F</td>
-                </tr>
-                <tr>
-                  <td>JTお客様相談センター</td>
-                  <td><a href="tel:0120198504">0120-198-504</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <h3 style={{ marginTop: "1.5rem", marginBottom: "0.25rem" }}>たばこ出張販売許可の取り方（最短ルート）</h3>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginBottom: '0.5rem' }}>
+          <a href="https://shop.cloud-jp.net" target="_blank" rel="noopener noreferrer">CLOUD SHOP</a>に頼めば<strong>無料</strong>で委託元になってくれる。登録免許税3,000円のみ。審査2〜3ヶ月。
+        </p>
+        <div className="table-wrap">
+          <table>
+            <tbody>
+              <tr>
+                <td>JT盛岡支店</td>
+                <td>盛岡市盛岡駅前通15-19 盛岡フコク生命ビル1F</td>
+              </tr>
+              <tr>
+                <td>JTお客様相談センター</td>
+                <td><a href="tel:0120198504">0120-198-504</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

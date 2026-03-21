@@ -29,23 +29,29 @@ export default function Home() {
         <MobileNav />
         <main>
           <Hero />
+          {/* Origin */}
           <WhyShisha />
           <Story />
           <About />
+          {/* Business */}
           <Concept />
-          <Permits />
+          <Properties />
+          <Competitors />
+          {/* Numbers */}
           <Pricing />
           <UnitEconomics />
           <RevenueSim />
-          <Properties />
-          <Competitors />
-          <RealCases />
+          <InvestmentTimeline />
+          {/* Operations */}
+          <Permits />
           <Ventilation />
           <OperationalRisks />
+          <RealCases />
+          {/* Execution */}
           <StrategyBoost />
           <Negotiation />
-          <InvestmentTimeline />
           <ActionPlan />
+          {/* Closing */}
           <Assessment />
           <Follow />
         </main>
