@@ -46,7 +46,7 @@ export function Story() {
               予言して行動して的中させて帰ってきたやつ流石に説得力ある説
             </p>
             <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-              — @konaito_ · Instagram, 2026.3
+              — @konaito5 · Instagram, 2026.3
             </p>
           </blockquote>
         </a>
