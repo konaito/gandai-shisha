@@ -1,0 +1,218 @@
+# Instagram API & 技術的実装ガイド
+
+## Instagram Graph API
+
+### 概要
+- Basic Display APIは2024年12月にEOL → 全てGraph APIに統合
+- ビジネス/クリエイターアカウントのみ対応（個人アカウント不可）
+- レート制限: 24時間あたり25〜100投稿、200リクエスト/時間
+
+### 写真投稿（2ステップ）
+
+```python
+import requests
+
+# Step 1: メディアコンテナ作成
+response = requests.post(
+    f"https://graph.facebook.com/v19.0/{ig_user_id}/media",
+    data={
+        "image_url": "https://example.com/image.jpg",  # 公開URLが必要
+        "caption": "キャプション #hashtag",
+        "access_token": ACCESS_TOKEN
+    }
+)
+container_id = response.json()["id"]
+
+# Step 2: 公開
+result = requests.post(
+    f"https://graph.facebook.com/v19.0/{ig_user_id}/media_publish",
+    data={
+        "creation_id": container_id,
+        "access_token": ACCESS_TOKEN
+    }
+)
+```
+
+### カルーセル投稿
+
+```python
+# 1. 各アイテムのコンテナ作成
+child_ids = []
+for image_url in image_urls:
+    resp = requests.post(
+        f"https://graph.facebook.com/v19.0/{ig_user_id}/media",
+        data={
+            "image_url": image_url,
+            "is_carousel_item": True,
+            "access_token": ACCESS_TOKEN
+        }
+    )
+    child_ids.append(resp.json()["id"])
+
+# 2. 親コンテナ作成
+parent = requests.post(
+    f"https://graph.facebook.com/v19.0/{ig_user_id}/media",
+    data={
+        "media_type": "CAROUSEL",
+        "children": ",".join(child_ids),
+        "caption": "カルーセル投稿",
+        "access_token": ACCESS_TOKEN
+    }
+)
+
+# 3. 公開
+requests.post(
+    f"https://graph.facebook.com/v19.0/{ig_user_id}/media_publish",
+    data={
+        "creation_id": parent.json()["id"],
+        "access_token": ACCESS_TOKEN
+    }
+)
+```
+
+### リール投稿
+
+```python
+requests.post(
+    f"https://graph.facebook.com/v19.0/{ig_user_id}/media",
+    data={
+        "media_type": "REELS",
+        "video_url": "https://example.com/video.mp4",
+        "caption": "リールキャプション",
+        "access_token": ACCESS_TOKEN
+    }
+)
+```
+
+### インサイト取得
+
+```python
+def get_media_insights(media_id, access_token):
+    return requests.get(
+        f"https://graph.facebook.com/v19.0/{media_id}/insights",
+        params={
+            "metric": "impressions,reach,likes,comments,shares,saved",
+            "access_token": access_token
+        }
+    ).json()
+```
+
+### トークン管理
+- 長期トークンは未使用60日で期限切れ
+- **50-55日ごとの自動リフレッシュ推奨**
+
+## Python ライブラリ
+
+### instagrapi（最も活発・Private API）
+
+```python
+from instagrapi import Client
+
+cl = Client()
+cl.login("username", "password")
+
+# 写真投稿
+cl.photo_upload("photo.jpg", "キャプション")
+
+# リール投稿
+cl.clip_upload("reel.mp4", "リールキャプション")
+
+# カルーセル投稿
+cl.album_upload(image_paths, caption="カルーセル")
+
+# DM送信
+threads = cl.direct_threads(1)
+cl.direct_answer(threads[0].id, "こんにちは！")
+```
+
+**注意**: Private API利用。ビジネス本番環境ではGraph API推奨。
+
+### その他
+- **aiograpi**: 非同期版instagrapi
+- **InstaPy**: いいね・フォロー・コメント自動化
+
+## Node.js/TypeScript ライブラリ
+
+| パッケージ | Stars | 特徴 |
+|---|---|---|
+| instagram-private-api | 6.4k | TypeScript製Private API SDK |
+| instagram-graph-api | - | 公式Graph APIラッパー |
+| puppeteer-instagram | - | ヘッドレスChrome駆動 |
+
+## Claude API + Instagram連携コード例
+
+```python
+import anthropic
+from instagrapi import Client
+
+def generate_and_post(image_path, image_description, brand_voice):
+    # 1. Claude APIでキャプション生成
+    claude = anthropic.Anthropic()
+    message = claude.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=500,
+        messages=[{
+            "role": "user",
+            "content": f"""以下の画像に対するInstagramキャプションを生成:
+画像: {image_description}
+ブランドボイス: {brand_voice}
+条件: 150文字以内、フック→本文→CTA、ハッシュタグ5個"""
+        }]
+    )
+    caption = message.content[0].text
+
+    # 2. Instagram投稿
+    cl = Client()
+    cl.login("username", "password")
+    cl.photo_upload(image_path, caption)
+```
+
+## Webhook
+
+### 購読可能なフィールド
+- comments（コメント通知）
+- mentions（@メンション通知）
+- stories（ストーリー期限切れ通知）
+
+**注意: 新しい投稿のWebhookは存在しない**
+
+## レート制限・BAN回避
+
+| 項目 | 推奨値 |
+|---|---|
+| アクション間の遅延 | 15〜60秒（ランダムジッター付き） |
+| DM上限 | 200件/時間 |
+| プロキシ | 1アカウント1プロキシ |
+| セッション | 永続化（毎回ログインしない） |
+| 投稿数 | 24時間で25〜100件まで |
+
+## MCP サーバー
+
+| MCPサーバー | 特徴 |
+|---|---|
+| **Composio Instagram MCP** | 最も包括的。投稿・インサイト・DM。Claude Code対応 |
+| **jlbadano/ig-mcp** | Node.js。Graph API完全ラップ |
+| **Bright Data Instagram MCP** | 公開データスクレイピング特化 |
+| **Zapier Instagram MCP** | ノーコード連携 |
+| **Instagram Analytics MCP** | アナリティクスデータ取得 |
+
+### Claude Codeでの利用
+
+```bash
+# Composio MCPをClaude Codeに接続後:
+# 「最新のAIトレンドについてInstagram投稿を作成して公開して」
+# 「過去30日のエンゲージメント率を分析して」
+# 「最新投稿のコメントを取得して返信案を提案して」
+```
+
+## GitHubリポジトリまとめ
+
+| リポジトリ | 言語 | 説明 |
+|---|---|---|
+| subzeroid/instagrapi | Python | Private API最強ライブラリ |
+| subzeroid/aiograpi | Python | 非同期版 |
+| dilame/instagram-private-api | TS | Node.js Private API |
+| gitroomhq/postiz-app | TS | OSS SNSスケジューラー（14k+ stars） |
+| langchain-ai/social-media-agent | Python | LangChain公式SNSエージェント |
+| Maartenlouis/remotion-ads | TS | Claude Code skill for Instagram |
+| DojoCodingLabs/remotion-superpowers | TS | Remotion Claude Codeプラグイン |

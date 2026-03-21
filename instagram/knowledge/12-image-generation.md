@@ -1,0 +1,165 @@
+# プログラマティック画像生成ガイド
+
+## アプローチ一覧
+
+| ユースケース | 推奨技術 |
+|---|---|
+| シンプルなSNS画像 | Satori + Sharp |
+| リッチなデザインの画像 | Puppeteer + HTML/CSS |
+| React開発者向け | Canvacord or Remotion renderStill() |
+| Reels動画 | Remotion |
+| AI画像生成 | OpenAI GPT-Image-1 API |
+| ノーコード自動化 | n8n + ContentDrips/Bannerbear |
+| バッチ/大量生成 | テンプレートAPI（Bannerbear/Placid） |
+| Python派 | Pillow + Instagram Graph API |
+
+## 1. HTML/CSS → 画像変換
+
+### Satori（Vercel製・軽量）
+
+JSXからSVGを生成。Puppeteerより圧倒的に軽量・高速。サーバーレスOK。
+
+```
+JSXテンプレート → satori → SVG → sharp → PNG (1080x1080)
+```
+
+- npm: `satori`
+- 制限: 対応するCSS/HTMLサブセットが限定的（Flexboxベース）
+
+### Puppeteer（フル機能）
+
+ヘッドレスChromeでHTML/CSSをスクリーンショット。複雑なレイアウト対応。
+
+```javascript
+const browser = await puppeteer.launch();
+const page = await browser.newPage();
+await page.setViewport({ width: 1080, height: 1080 });
+await page.setContent(htmlTemplate);
+await page.screenshot({ path: 'post.png' });
+```
+
+### node-html-to-image
+
+HTMLからPNG/JPEGを生成。内部でPuppeteerを使用。
+
+```javascript
+const nodeHtmlToImage = require('node-html-to-image');
+await nodeHtmlToImage({
+  output: './post.png',
+  html: '<html>...</html>'
+});
+```
+
+### html-to-image（ブラウザ側）
+
+DOM要素をPNG/SVG/JPEGに変換。フロントエンドプレビュー向け。
+
+## 2. Remotion（React → 動画/画像）
+
+Reactで動画・静止画をプログラム生成。GitHub★21k+。
+
+### Instagram Reels
+- 9:16アスペクト比のCompositionを定義 → MP4レンダリング
+
+### カルーセル画像
+- 各スライドをReactコンポーネント定義 → `renderStill()` で個別PNG出力
+
+### remotion-ads（Claude Code skill）
+- Instagram Reels: 9:16（1080x1920）、H.264 MP4、30FPS
+- カルーセル: 4:5（1080x1350）、静止画、5-10枚
+- ElevenLabsボイスオーバー対応
+
+## 3. Canvas API / Sharp / Jimp
+
+| パッケージ | 特徴 | 速度 |
+|---|---|---|
+| **Sharp** | libvipsベース、高速リサイズ | ImageMagickの4-5倍 |
+| **node-canvas** | HTML5 Canvas互換、テキスト描画 | 中程度 |
+| **@napi-rs/canvas** | Rust製、node-gypなし | 高速 |
+| **Jimp** | 純JS、依存関係ゼロ | 低速 |
+| **Canvacord** | React風構文でSNS画像生成 | 中程度 |
+
+### Canvacord（注目）
+React風JSXライクな構文でテンプレート定義 → 動的にテキスト・画像差し込み。
+
+### Python: Pillow
+テキスト描画、テンプレート合成、バッチ処理に対応。
+
+## 4. AI画像生成
+
+| サービス | API | 特徴 |
+|---|---|---|
+| OpenAI GPT-Image-1 | REST API | 商用利用明確、プログラム統合が容易 |
+| Stable Diffusion | Replicate/RunPod | OSS、セルフホスト可 |
+| Flux | Replicate/fal.ai | 新世代、高品質 |
+
+### n8nでのAIカルーセル生成ワークフロー
+
+```
+Google Sheets（テーマ一覧）
+  → n8nトリガー
+  → GPT-Image-1で1枚目生成
+  → 前の画像+プロンプトで2枚目以降を順次生成（edits API）
+  → AIキャプション生成
+  → Instagram Graph APIでカルーセル投稿
+```
+
+## 5. テンプレートベース画像生成API
+
+| サービス | 特徴 |
+|---|---|
+| **Bannerbear** | テンプレートレイヤーをAPI変更、npm/Python SDK |
+| **Placid** | Zapier/Make連携、ノーコード対応 |
+| **Abyssale** | AI搭載、45+言語翻訳 |
+| **HTMLCSSToImage** | HTML/CSSをAPI経由で画像変換 |
+| **ContentDrips** | テキスト→カルーセル画像（無料ツール+API） |
+
+## 6. テキスト→Instagram投稿パイプライン
+
+### Option A: 軽量（Satori + Sharp）
+```
+テキスト入力 → LLMでスライド分割 → Satori(JSXテンプレート→SVG) → Sharp(PNG) → Graph API
+```
+
+### Option B: フル機能（Puppeteer）
+```
+テキスト入力 → LLMで構成 → HTML/CSSテンプレート → Puppeteerスクリーンショット → Graph API
+```
+
+### Option C: 動画対応（Remotion）
+```
+テキスト入力 → LLMで構成 → Reactコンポーネント → renderStill()/renderMedia() → Graph API
+```
+
+## 7. バッチ生成
+
+### ワークフロー
+1. CSVやJSONでコンテンツカレンダーを定義
+2. 各投稿にテンプレート+データで画像を生成
+3. 生成画像をストレージに保存
+4. スケジュールに従ってGraph APIで投稿
+
+### Instagram Graph APIの制限
+- 24時間あたり最大50件のAPI投稿
+- カルーセルは1投稿としてカウント（最大10枚）
+
+## 関連GitHubリポジトリ
+
+| リポジトリ | 説明 |
+|---|---|
+| VDraw/ai-carousel-post-generator | AIでカルーセル投稿を生成 |
+| FranciscoMoretti/carousel-generator | AIカルーセルメーカー |
+| yuvraj108c/instagram-publisher | Node.jsで投稿（APIキー不要） |
+| astronights/insta-llm | Gemini LLMでキャプション+投稿 |
+| 0xmetaschool/Social-Media-Post-Generator | Next.js+AIでSNS投稿生成 |
+| joeltgray/AImaginaryCreations | OpenAI画像→Instagram自動投稿 |
+| minimaxir/imgmaker | テンプレートベースの画像生成 |
+
+## Instagramの画像サイズ規格
+
+| タイプ | アスペクト比 | ピクセル |
+|---|---|---|
+| フィード（正方形） | 1:1 | 1080x1080 |
+| フィード（縦長） | 4:5 | 1080x1350 |
+| ストーリーズ/リール | 9:16 | 1080x1920 |
+| カルーセル | 1:1 or 4:5 | 1080x1080 or 1080x1350 |

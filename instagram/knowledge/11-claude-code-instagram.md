@@ -1,0 +1,129 @@
+# Claude Code × Instagram 実践ガイド
+
+## 概要
+
+Claude Codeを活用してInstagram運用を自動化・効率化するための技術的ノウハウ。
+
+## 成功事例
+
+### 事例1: ローカルニュースレターエージェント
+- **課題**: 毎週12時間のスクレイピング+デザイン作業
+- **解決**: Claude Codeのカスタムスキル。ビジョン機能でチラシ解析→カルーセル生成
+- **結果**: **10分のターミナルコマンド**に短縮
+
+### 事例2: ブラウザ自動化投稿
+- **手法**: Claude + Playwrightでブラウザを操作し、Meta Business Suite経由でInstagramに投稿
+- **メリット**: Meta Graph APIのビジネス認証が不要
+- **速度**: 1投稿あたり約15-20秒、バッチで1週間分を一括スケジュール
+
+### 事例3: Cursor + Convexでスケジューリングアプリ
+- **スタック**: Cursor + Claude（Sonnet）+ Convex（リアルタイムDB）+ Next.js
+- **機能**: 複数SNSアカウント接続、メトリクス取り込み、投稿作成、分析表示
+
+## AIエージェントアーキテクチャ
+
+### LangChain Social Media Agent（OSS）
+
+```
+[コンテンツソース] → [Ingestグラフ] → [generatePostグラフ] → [Human-in-the-Loop] → [uploadPostグラフ] → [SNS]
+```
+
+- LangGraphベースのモジュラーアーキテクチャ
+- Slackチャンネルからのトリガーで日次投稿を自動生成
+- GitHub: `langchain-ai/social-media-agent`
+
+### Postiz（OSS SNSスケジューラー）
+
+```
+Frontend: Next.js
+Backend: Node.js
+DB: PostgreSQL
+Cache/Queue: Redis
+Workflow: Temporal
+連携: 30+プラットフォーム
+GitHub: gitroomhq/postiz-app（14k+ stars）
+```
+
+## 自動化ワークフロー（n8n）
+
+### 主要テンプレート
+
+| テンプレート | 内容 |
+|---|---|
+| GPT-Image + Instagram | AI画像+キャプション→Graph APIで自動投稿 |
+| Google Sheets → Instagram | スプレッドシートからテーマ→AI画像→自動投稿 |
+| Telegram → Instagram | メッセージ1つから6枚スライド生成→投稿 |
+| Instagram Reels自動化 | Geminiでキャプション+ハッシュタグ→リール投稿 |
+
+n8nコミュニティには**490以上のSNS自動化テンプレート**が公開済み。
+
+### n8n vs Make vs Zapier
+
+| 項目 | n8n | Make | Zapier |
+|---|---|---|---|
+| AI統合 | LangChain対応、70+AIノード | 中程度 | AI Assistantあり |
+| コスト(月1万実行) | ほぼ無料(セルフホスト) | 中程度 | $300+/月 |
+| コードノード | JS/Python対応 | 限定的 | 限定的 |
+
+## 推奨アーキテクチャ
+
+### BiPシーシャ向け完全自動化スタック
+
+```
+[コンテンツ企画]
+  Claude Code + Brave Search MCP → トレンドリサーチ
+
+[画像生成]
+  Remotion（カルーセル/リール）or GPT-Image-1（AI画像）
+
+[テキスト生成]
+  Claude API → キャプション・ハッシュタグ最適化
+
+[投稿管理]
+  Composio Instagram MCP → Claude Codeから直接操作
+  or Postiz（セルフホスト）→ REST API経由
+
+[分析]
+  Instagram Analytics MCP → エンゲージメント分析
+  Bright Data MCP → 競合分析
+
+[ダッシュボード]
+  Next.js + shadcn/ui + Vercel → 管理画面
+
+[オーケストレーション]
+  n8n（ノーコード）or LangGraph（コード）
+```
+
+## 競合分析自動化
+
+### ツール
+- **ScrapeGraphAI**: AIでコンテキスト理解、コンテンツ自動分類
+- **Bright Data Instagram MCP**: リアルタイム公開データ取得
+- **HypeAuditor**: AI駆動のインフルエンサー分析
+
+### 自作アプローチ
+```
+instagrapi で競合の投稿データをスクレイピング
+  → LLMでコンテンツ傾向を分析
+  → エンゲージメント率の高い投稿パターン抽出
+  → 自社戦略への提案を生成
+```
+
+## Instagram管理ダッシュボード構築
+
+### 推奨スタック
+
+```
+Framework: Next.js 14+ (App Router)
+UI: shadcn/ui + Tailwind CSS
+DB: PostgreSQL (Supabase)
+Auth: NextAuth.js / Clerk
+API: Instagram Graph API + MCPサーバー
+Deploy: Vercel
+Image Gen: Remotion or Bannerbear API
+```
+
+### 参考リポジトリ
+- bjcarlson42/nextjs-social-dashboard
+- gitroomhq/postiz-app
+- Vercel Admin Dashboard Template
