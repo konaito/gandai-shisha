@@ -22,30 +22,32 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="page-layout">
       <Navigation />
-      <main>
-        <Hero />
-        <Story />
-        <About />
-        <Concept />
-        <Permits />
-        <Pricing />
-        <UnitEconomics />
-        <RevenueSim />
-        <Properties />
-        <Competitors />
-        <RealCases />
-        <Ventilation />
-        <OperationalRisks />
-        <StrategyBoost />
-        <Negotiation />
-        <InvestmentTimeline />
-        <ActionPlan />
-        <Assessment />
-        <Follow />
-      </main>
-      <Footer />
-    </>
+      <div className="page-main">
+        <main>
+          <Hero />
+          <Story />
+          <About />
+          <Concept />
+          <Permits />
+          <Pricing />
+          <UnitEconomics />
+          <RevenueSim />
+          <Properties />
+          <Competitors />
+          <RealCases />
+          <Ventilation />
+          <OperationalRisks />
+          <StrategyBoost />
+          <Negotiation />
+          <InvestmentTimeline />
+          <ActionPlan />
+          <Assessment />
+          <Follow />
+        </main>
+        <Footer />
+      </div>
+    </div>
   );
 }
