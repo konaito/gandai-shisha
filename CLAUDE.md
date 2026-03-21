@@ -6,25 +6,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 BiPシーシャ — 岩手大学生向け貸切シーシャの「Build in Public」サイト。物件探し・料金設計・原価計算・競合調査など事業構築の全プロセスを公開する単一ページのWebサイト。
 
-## アーキテクチャ
+## 技術スタック
 
-- **静的HTMLサイト**: フレームワーク・ビルドツールなし。`index.html` 1ファイルに全HTML/CSS/コンテンツが含まれる（約1200行）
-- **ホスティング**: Vercel（`/_vercel/insights/script.js` でVercel Analyticsを使用）
-- **画像**: ルート直下に `chart-*.png`（データチャート）、`img/` 配下に物件写真等
-- **バックアップ**: `index_dark_backup.html` はダークテーマ版のバックアップ（gitignore済み）
+- **Next.js 16** + React 19 + TypeScript（`frontend/` ディレクトリ）
+- **静的エクスポート**: `next.config.ts` で `output: "export"` 設定。SSR/API Routeなし
+- **パッケージマネージャ**: bun（`bun.lock` 使用）
+- **ホスティング**: Vercel
+- **CI**: GitHub Actions で Claude Code Action（`@claude` メンション対応）
 
-## 開発
+## 開発コマンド
 
-ビルドステップなし。`index.html` を直接ブラウザで開くか、ローカルサーバーで確認する:
+すべて `frontend/` ディレクトリで実行:
 
 ```bash
-python3 -m http.server 8000
+cd frontend
+bun install        # 依存関係インストール
+bun run dev        # 開発サーバー起動
+bun run build      # 静的ビルド（出力: out/）
 ```
 
-## CSS設計
+リンターやテストフレームワークは未導入。
 
-CSSは `index.html` の `<style>` タグ内にすべて記述。CSS変数（`--bg`, `--surface`, `--border`, `--text`, `--accent` 等）でカラー管理。レスポンシブ対応は640px breakpoint。
+## アーキテクチャ
 
-## コンテンツ構成
+- **単一ページ構成**: `app/page.tsx` が全セクションコンポーネントを並べるだけのルートページ
+- **コンポーネント**: `components/` に各セクション（Hero, Story, Pricing, Properties等）を1ファイル1コンポーネントで配置。Server Componentが基本
+- **ナビゲーション**: `Navigation.tsx` のみ `"use client"`。`Sidebar`（デスクトップ）と `MobileNav`（900px以下でハンバーガー）を export。IntersectionObserverでアクティブセクション追従
+- **CSS**: `app/globals.css` にすべてのスタイルを記述。CSS変数（`--bg`, `--surface`, `--border`, `--text`, `--accent` 等）でカラー管理。レスポンシブは900px breakpoint。Tailwind不使用
+- **パスエイリアス**: `@/*` → `frontend/`ルート（tsconfig.json で設定）
 
-HTMLコメント `<!-- === SECTION === -->` でセクション区切り。主要セクション: Hero, Story, Concept, Property, Cost, Revenue, Competitor, Investment, Phone Scripts, Promo, Build in Public。
+## ディレクトリ構成の注意点
+
+- `legacy/` — 移行前の静的HTML版（`index.html`）。参照用に残してあるが編集不要
+- `instagram/` — Instagram運用のナレッジベース・テンプレート集。サイト本体とは独立
+- `frontend/public/` — 画像アセット。`chart-*.png`（データチャート）、`img/`（物件写真等）
