@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 const NAV_ITEMS = [
+  { id: "why-shisha", label: "なぜシーシャか" },
   { id: "story", label: "なぜ作るのか" },
   { id: "about", label: "誰が作るのか" },
   { id: "concept", label: "ビジネスモデル" },
