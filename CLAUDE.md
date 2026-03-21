@@ -47,6 +47,18 @@ bun run build      # 静的ビルド（出力: out/）
 
 ## ディレクトリ構成の注意点
 
+- `docs/` — 事業を伸ばすためのナレッジ蓄積場所。コードとは独立した調査結果・ノウハウをAIが読める形で保管する。各ディレクトリのREADME.mdに作成意図を記載
+  - `docs/instagram/` — Instagram集客・SNS運用
+  - `docs/meo/` — Googleマップ・MEO対策
+  - `docs/line/` — LINE公式アカウント運用
+  - `docs/tiktok/` — TikTok・ショート動画戦略
+  - `docs/shisha-ops/` — シーシャ店舗運営（仕入れ・機材・在庫）
+  - `docs/customer-experience/` — 顧客体験・リピーター施策
+  - `docs/hygiene/` — 衛生管理
+  - `docs/legal/` — 法務・許認可（たばこ事業法・消防法等）
+  - `docs/finance/` — 財務・税務
+  - `docs/property/` — 物件・内装
+  - `docs/bip-strategy/` — Build in Public戦略
 - `legacy/` — 移行前の静的HTML版（`index.html`）。参照用に残してあるが編集不要
-- `instagram/` — Instagram運用のナレッジベース・テンプレート集。サイト本体とは独立
+- `instagram/` — Instagram運用の実務ファイル（テンプレート、投稿、カレンダー等）。サイト本体とは独立
 - `frontend/public/` — 画像アセット。`chart-*.png`（データチャート）、`img/`（物件写真等）
