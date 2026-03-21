@@ -1,0 +1,10 @@
+{
+  "title": "LINE公式アカウント",
+  "pages": [
+    "---",
+    "01-account-setup",
+    "02-reservation-flow",
+    "03-crm-retention",
+    "04-line-api-automation"
+  ]
+}

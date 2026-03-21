@@ -40,5 +40,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Vercel
 .vercel/
 
+# Fumadocs generated
+.source
+
 # Claude worktrees
 .claude/worktrees/
