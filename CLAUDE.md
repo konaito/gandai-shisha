@@ -2,9 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 運営者情報
+
+- **名前**: 内藤剛汰
+- **所属**: 岩手大学 理工学部 数理・物理コース 3年
+- **Email**: ceo@fybe.jp
+- **Instagram**: @konaito5
+- **GitHub**: https://github.com/konaito
+
 ## プロジェクト概要
 
-BiPシーシャ — 岩手大学生向け貸切シーシャの「Build in Public」サイト。物件探し・料金設計・原価計算・競合調査など事業構築の全プロセスを公開する単一ページのWebサイト。
+BiPシーシャ — 岩手大学生向け貸切シーシャの「Build in Public」サイト。物件探し・料金設計・原価計算・競合調査など事業構築の全プロセスを公開するWebサイト。
+
+- **公開URL**: https://shisha.konaito.com
 
 ## 技術スタック
 
