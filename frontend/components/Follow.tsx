@@ -8,7 +8,7 @@ export function Follow() {
 
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
           <a
-            href="https://www.instagram.com/konaito_/"
+            href="https://www.instagram.com/konaito5/"
             target="_blank"
             rel="noopener noreferrer"
             style={{

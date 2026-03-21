@@ -13,7 +13,7 @@ export function Hero() {
         </p>
         <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
           <a
-            href="https://www.instagram.com/konaito_/"
+            href="https://www.instagram.com/konaito5/"
             target="_blank"
             rel="noopener noreferrer"
             style={{
