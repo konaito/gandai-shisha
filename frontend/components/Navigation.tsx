@@ -42,7 +42,7 @@ export function Navigation() {
             }
           });
         },
-        { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+        { rootMargin: "-10% 0px -80% 0px", threshold: 0 }
       );
 
       observer.observe(element);
@@ -67,30 +67,47 @@ export function Navigation() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  const navLinks = NAV_ITEMS.map(({ id, label }) => (
+    <a
+      key={id}
+      href={`#${id}`}
+      className={activeSection === id ? "active" : ""}
+      onClick={(e) => {
+        e.preventDefault();
+        handleNavClick(id);
+      }}
+    >
+      {label}
+    </a>
+  ));
+
   return (
     <>
-      <nav className="nav">
-        <div className="nav-inner">
-          <a href="#" className="nav-logo" onClick={(e) => { e.preventDefault(); handleLogoClick(); }}>
+      {/* Desktop sidebar */}
+      <aside className="sidebar">
+        <a
+          href="#"
+          className="sidebar-logo"
+          onClick={(e) => { e.preventDefault(); handleLogoClick(); }}
+        >
+          BiPシーシャ
+        </a>
+        <nav className="sidebar-links">
+          {navLinks}
+        </nav>
+      </aside>
+      <div className="sidebar-spacer" />
+
+      {/* Mobile top bar */}
+      <div className="mobile-bar">
+        <div className="mobile-bar-inner">
+          <a
+            href="#"
+            className="mobile-bar-logo"
+            onClick={(e) => { e.preventDefault(); handleLogoClick(); }}
+          >
             BiPシーシャ
           </a>
-
-          <div className="nav-links">
-            {NAV_ITEMS.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className={activeSection === id ? "active" : ""}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(id);
-                }}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-
           <button
             className="hamburger"
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -110,8 +127,9 @@ export function Navigation() {
             )}
           </button>
         </div>
-      </nav>
+      </div>
 
+      {/* Mobile fullscreen menu */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         {NAV_ITEMS.map(({ id, label }) => (
           <a
