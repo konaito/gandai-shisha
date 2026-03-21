@@ -175,12 +175,10 @@ footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-
 
 /* Layout */
 .page-layout {
-  display: flex;
   min-height: 100vh;
 }
 .page-main {
-  flex: 1;
-  min-width: 0;
+  margin-left: 200px;
 }
 
 /* Sidebar NAV */
@@ -236,11 +234,6 @@ footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-
   border-left-color: var(--text);
   background: var(--tag-bg);
 }
-.sidebar-spacer {
-  width: 200px;
-  flex-shrink: 0;
-}
-
 /* Mobile top bar */
 .mobile-bar {
   display: none;
@@ -302,7 +295,7 @@ footer { padding: 3rem 1.5rem; text-align: center; color: var(--text-dim); font-
 
 @media (max-width: 900px) {
   .sidebar { display: none; }
-  .sidebar-spacer { display: none; }
+  .page-main { margin-left: 0; }
   .mobile-bar { display: block; }
   .plan-grid { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
