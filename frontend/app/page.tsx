@@ -1,5 +1,6 @@
 import { Sidebar, MobileNav } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
+import { WhyShisha } from "@/components/WhyShisha";
 import { Story } from "@/components/Story";
 import { About } from "@/components/About";
 import { Concept } from "@/components/Concept";
@@ -28,6 +29,7 @@ export default function Home() {
         <MobileNav />
         <main>
           <Hero />
+          <WhyShisha />
           <Story />
           <About />
           <Concept />
