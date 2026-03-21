@@ -1,4 +1,3 @@
-import { Sidebar, MobileNav } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { WhyShisha } from "@/components/WhyShisha";
 import { Story } from "@/components/Story";
@@ -23,34 +22,28 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="page-layout">
-      <Sidebar />
-      <div className="page-main">
-        <MobileNav />
-        <main>
-          <Hero />
-          <WhyShisha />
-          <Story />
-          <About />
-          <Concept />
-          <Permits />
-          <Pricing />
-          <UnitEconomics />
-          <RevenueSim />
-          <Properties />
-          <Competitors />
-          <RealCases />
-          <Ventilation />
-          <OperationalRisks />
-          <StrategyBoost />
-          <Negotiation />
-          <InvestmentTimeline />
-          <ActionPlan />
-          <Assessment />
-          <Follow />
-        </main>
-        <Footer />
-      </div>
-    </div>
+    <main>
+      <Hero />
+      <WhyShisha />
+      <Story />
+      <About />
+      <Concept />
+      <Permits />
+      <Pricing />
+      <UnitEconomics />
+      <RevenueSim />
+      <Properties />
+      <Competitors />
+      <RealCases />
+      <Ventilation />
+      <OperationalRisks />
+      <StrategyBoost />
+      <Negotiation />
+      <InvestmentTimeline />
+      <ActionPlan />
+      <Assessment />
+      <Follow />
+      <Footer />
+    </main>
   );
 }
