@@ -6,20 +6,18 @@ export function UnitEconomics() {
         <h2>原価構造と利益率</h2>
         <p className="section-desc">シーシャの原価率は15〜25%。飲食業で最も利益率が高い業態のひとつ。</p>
 
-        <div className="card">
-          <h3>シーシャ1台1セッションの原価</h3>
-          <div className="table-wrap" style={{ marginTop: "0.5rem" }}>
-            <table>
-              <thead><tr><th>項目</th><th>数量</th><th>単価</th><th>小計</th></tr></thead>
-              <tbody>
-                <tr><td>フレーバー</td><td>10g</td><td>~25円/g</td><td><strong>250円</strong></td></tr>
-                <tr><td>ココナッツ炭</td><td>6個</td><td>~12円/個</td><td><strong>72円</strong></td></tr>
-                <tr><td>マウスピース</td><td>1〜2個</td><td>~12円</td><td><strong>18円</strong></td></tr>
-                <tr><td>その他消耗品</td><td>—</td><td>—</td><td><strong>5円</strong></td></tr>
-                <tr style={{ background: "#f7f7f7" }}><td colSpan={3}><strong>合計</strong></td><td><strong>~345円</strong></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <h3>シーシャ1台1セッションの原価</h3>
+        <div className="table-wrap" style={{ marginTop: "0.5rem" }}>
+          <table>
+            <thead><tr><th>項目</th><th>数量</th><th>単価</th><th>小計</th></tr></thead>
+            <tbody>
+              <tr><td>フレーバー</td><td>10g</td><td>~25円/g</td><td><strong>250円</strong></td></tr>
+              <tr><td>ココナッツ炭</td><td>6個</td><td>~12円/個</td><td><strong>72円</strong></td></tr>
+              <tr><td>マウスピース</td><td>1〜2個</td><td>~12円</td><td><strong>18円</strong></td></tr>
+              <tr><td>その他消耗品</td><td>—</td><td>—</td><td><strong>5円</strong></td></tr>
+              <tr style={{ background: "#f7f7f7" }}><td colSpan={3}><strong>合計</strong></td><td><strong>~345円</strong></td></tr>
+            </tbody>
+          </table>
         </div>
 
         <div className="chart-wrap" style={{ margin: "1rem 0" }}>

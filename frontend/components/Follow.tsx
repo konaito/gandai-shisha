@@ -8,7 +8,7 @@ export function Follow() {
 
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
           <a
-            href="https://www.instagram.com/konaito5/"
+            href="https://note.com/konaito"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -23,6 +23,27 @@ export function Follow() {
               fontWeight: 700,
               textDecoration: 'none',
               transition: 'opacity 0.15s',
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
+            note 連載を読む
+          </a>
+          <a
+            href="https://www.instagram.com/konaito5/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.6rem 1.25rem',
+              border: '1px solid var(--text)',
+              color: 'var(--text)',
+              borderRadius: '8px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              transition: 'background 0.15s, color 0.15s',
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
@@ -51,7 +72,11 @@ export function Follow() {
           </a>
         </div>
 
-        <div className="grid-2" style={{ textAlign: 'left' }}>
+        <div className="grid-3" style={{ textAlign: 'left' }}>
+          <div className="card">
+            <h3>note</h3>
+            <p className="text-sm-dim">作者の内藤剛汰が書いているブログ。AGIと人間の関係、技術進歩が既存の営みを無意味化する話など、このサイトの背景にある思想を長文で書いている。</p>
+          </div>
           <div className="card">
             <h3>Instagram</h3>
             <p className="text-sm-dim">日々の進捗、テスト営業の様子、失敗談、数字の公開。ストーリーズで保健所の電話結果とか、物件内見のリアクションとか、全部流す。</p>
