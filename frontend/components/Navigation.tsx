@@ -3,27 +3,95 @@
 import { useState, useEffect, useCallback } from "react";
 
 const NAV_ITEMS = [
-  { id: "story", label: "Story" },
-  { id: "about", label: "About" },
-  { id: "concept", label: "Concept" },
-  { id: "permits", label: "Permits" },
-  { id: "pricing", label: "Pricing" },
-  { id: "unit-economics", label: "Unit Economics" },
-  { id: "revenue", label: "Revenue" },
-  { id: "properties", label: "Properties" },
-  { id: "competitors", label: "Competitors" },
-  { id: "real-cases", label: "Real Cases" },
-  { id: "ventilation", label: "Ventilation" },
-  { id: "risks", label: "Risks" },
-  { id: "strategy", label: "Strategy" },
-  { id: "negotiation", label: "Negotiation" },
-  { id: "investment", label: "Investment" },
-  { id: "action-plan", label: "Action Plan" },
-  { id: "assessment", label: "Assessment" },
-  { id: "follow", label: "Follow" },
+  { id: "story", label: "なぜ作るのか" },
+  { id: "about", label: "誰が作るのか" },
+  { id: "concept", label: "ビジネスモデル" },
+  { id: "permits", label: "許認可" },
+  { id: "pricing", label: "料金設計" },
+  { id: "unit-economics", label: "原価構造" },
+  { id: "revenue", label: "収益シミュレーション" },
+  { id: "properties", label: "候補物件" },
+  { id: "competitors", label: "競合分析" },
+  { id: "real-cases", label: "実例と教訓" },
+  { id: "ventilation", label: "換気設備" },
+  { id: "risks", label: "運営リスク" },
+  { id: "strategy", label: "戦略" },
+  { id: "negotiation", label: "交渉術" },
+  { id: "investment", label: "コスト計画" },
+  { id: "action-plan", label: "やることリスト" },
+  { id: "assessment", label: "総合評価" },
+  { id: "follow", label: "進捗を追う" },
 ];
 
-export function Navigation() {
+export function Sidebar() {
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    NAV_ITEMS.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { rootMargin: "-10% 0px -80% 0px", threshold: 0 }
+      );
+
+      observer.observe(element);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
+
+  const handleNavClick = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
+  return (
+    <aside className="sidebar">
+      <a
+        href="#"
+        className="sidebar-logo"
+        onClick={(e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        BiPシーシャ
+      </a>
+      <nav className="sidebar-links">
+        {NAV_ITEMS.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={activeSection === id ? "active" : ""}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick(id);
+            }}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+    </aside>
+  );
+}
+
+export function MobileNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
@@ -62,56 +130,25 @@ export function Navigation() {
     }
   }, []);
 
-  const handleLogoClick = useCallback(() => {
-    setMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  const navLinks = NAV_ITEMS.map(({ id, label }) => (
-    <a
-      key={id}
-      href={`#${id}`}
-      className={activeSection === id ? "active" : ""}
-      onClick={(e) => {
-        e.preventDefault();
-        handleNavClick(id);
-      }}
-    >
-      {label}
-    </a>
-  ));
-
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside className="sidebar">
-        <a
-          href="#"
-          className="sidebar-logo"
-          onClick={(e) => { e.preventDefault(); handleLogoClick(); }}
-        >
-          BiPシーシャ
-        </a>
-        <nav className="sidebar-links">
-          {navLinks}
-        </nav>
-      </aside>
-      <div className="sidebar-spacer" />
-
-      {/* Mobile top bar */}
       <div className="mobile-bar">
         <div className="mobile-bar-inner">
           <a
             href="#"
             className="mobile-bar-logo"
-            onClick={(e) => { e.preventDefault(); handleLogoClick(); }}
+            onClick={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           >
             BiPシーシャ
           </a>
           <button
             className="hamburger"
             onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
           >
             {menuOpen ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -129,7 +166,6 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* Mobile fullscreen menu */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         {NAV_ITEMS.map(({ id, label }) => (
           <a

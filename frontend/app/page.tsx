@@ -1,4 +1,4 @@
-import { Navigation } from "@/components/Navigation";
+import { Sidebar, MobileNav } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Story } from "@/components/Story";
 import { About } from "@/components/About";
@@ -23,8 +23,9 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <div className="page-layout">
-      <Navigation />
+      <Sidebar />
       <div className="page-main">
+        <MobileNav />
         <main>
           <Hero />
           <Story />
